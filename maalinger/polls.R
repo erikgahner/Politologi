@@ -8,7 +8,8 @@ polls <- read_csv("https://raw.githubusercontent.com/erikgahner/polls/master/pol
                   col_types = cols(
                     party_p = col_double(),
                     party_e = col_double(),
-                    party_g = col_double()
+                    party_g = col_double(),
+                    party_moderaterne = col_double(),
                   ))
 
 
