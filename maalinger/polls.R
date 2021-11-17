@@ -119,7 +119,7 @@ dev.off()
 png('support-all.png', width = 800, height = 700, units = "px", res = 115)
 polls_use %>%
   gather(party, support, party_a:party_aa) %>%
-  filter(!party %in% c("party_e", "party_p")) %>% 
+  filter(!party %in% c("party_e", "party_p", "party_q", "party_moderaterne")) %>% 
   ggplot(aes(x=as.Date(date), y=support, colour=party)) +
   geom_point(size=1, alpha=0.3) +
   geom_hline(yintercept = 0) +
