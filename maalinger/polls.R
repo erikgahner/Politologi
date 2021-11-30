@@ -7,6 +7,7 @@ options(OutDec= ",")
 polls <- read_csv("https://raw.githubusercontent.com/erikgahner/polls/master/polls.csv",
                   col_types = cols(
                     party_p = col_double(),
+                    party_q = col_double(),
                     party_e = col_double(),
                     party_g = col_double(),
                     party_moderaterne = col_double(),
@@ -98,6 +99,10 @@ dev.off()
 
 png('support-o.png', width = 800, height = 700, units = "px", res = 135)
 plot_party("o", "Dansk Folkeparti")
+dev.off()
+
+png('support-q.png', width = 800, height = 700, units = "px", res = 135)
+plot_party("q", "Frie Grønne")
 dev.off()
 
 png('support-v.png', width = 800, height = 700, units = "px", res = 135)
