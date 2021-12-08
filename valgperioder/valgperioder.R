@@ -24,8 +24,9 @@ polls_2011 <- polls |>
   filter(date > as.Date("2011-09-15"), date <= as.Date("2015-06-18"))
 
 polls_2011 |>
-  gather(party, support, party_a:party_aa) |>
-  filter(!party %in% c("party_e", "party_p", "party_q", "party_moderaterne")) |> 
+  gather(party, support, party_a:party_moderaterne) |>
+  filter(!party %in% c("party_e", "party_p", "party_q", "party_moderaterne")) |>
+  drop_na(support) |> 
   ggplot(aes(x=as.Date(date), y=support, colour=party)) +
   geom_point(size=1, alpha=0.3) +
   geom_hline(yintercept = 0) +
@@ -33,11 +34,11 @@ polls_2011 |>
   geom_hline(yintercept=2, linetype = "dashed") +
   labs(y = "Stemmer (%)",
        x = NULL) +
-  scale_colour_manual(labels = c("Socialdemokraterne", "Alternativet", "Radikale Venstre", "Konservative", "Nye Borgerlige", "SF", "Veganerpartiet", 
+  scale_colour_manual(labels = c("Socialdemokraterne", "Alternativet", "Radikale Venstre", "Konservative", "SF", 
                                  "Liberal Alliance", "Kristendemokraterne", "Dansk Folkeparti", "Enhedslisten", "Venstre"), 
-                      values = c("#E3515D", "#AEFEAF", "#EB4295", "#429969", "#05454F", "#9C1D2A", "green",
+                      values = c("#E3515D", "#AEFEAF", "#EB4295", "#429969",  "#9C1D2A", 
                                  "#EE9A5F", "#F4CE97", "#3D6F8D", "#914A4F", "#459BC8"),
-                      guide = guide_legend(ncol = 4)) +
+                      guide = guide_legend(ncol = 3)) +
   theme_minimal(base_size = 12, base_family = "Barlow") %+replace% 
   theme(panel.grid.major.x = element_blank(), 
         panel.grid.minor.x = element_blank(), 
@@ -52,4 +53,4 @@ polls_2011 |>
         legend.title = element_blank()
   )
 
-ggsave("fv_2011_15.jpg", width = 8, height = 7)
+ggsave("fv_2011_15.jpg", width = 6, height = 8)
