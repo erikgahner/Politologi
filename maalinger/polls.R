@@ -151,3 +151,41 @@ polls_use %>%
         legend.title = element_blank()
   )
 dev.off()
+
+blok_use <- polls |> 
+  mutate(across(starts_with("party_"), ~ ifelse(is.na(.x), 0, .x))) |> 
+  mutate(blok_roed = party_a + party_b + party_f + party_g + party_q + party_oe + party_aa,
+         blok_blaa = party_c + party_d + party_e + party_i + party_k + party_o + party_p + party_v + party_moderaterne) |> 
+  select(-starts_with("party_")) |> 
+  mutate(date = make_date(year, month, day),
+         across(starts_with("blok_"), ~ 1.96 * sqrt((.x * (100 - .x)) / n), .names = "ci_{.col}")
+  ) |> 
+  arrange(desc(as.Date(date))) |> 
+  top_n(75, as.Date(date)) 
+
+ggplot(data = blok_use) +
+  geom_hline(yintercept=50, linetype = "dashed") +
+  stat_smooth (geom="line", aes(x = as.Date(date), y = blok_roed), colour = "#FF4136", span = .3, size = 1, alpha = 0.4) +
+  stat_smooth (geom="line", aes(x = as.Date(date), y = blok_blaa), colour = "#0074D9", span = .3, size = 1, alpha = 0.4) +
+  geom_point(aes(x = as.Date(date), y = blok_roed), colour = "#FF4136") +
+  geom_errorbar(aes(x = as.Date(date), y = blok_roed, ymin = blok_roed - ci_blok_roed, ymax = blok_roed + ci_blok_roed), colour = "#FF4136") +
+  geom_point(aes(x = as.Date(date), y = blok_blaa), colour = "#0074D9") +
+  geom_errorbar(aes(x = as.Date(date), y = blok_blaa, ymin = blok_blaa - ci_blok_blaa, ymax = blok_blaa + ci_blok_blaa), colour = "#0074D9") +
+  ylim(min(min(blok_use$blok_roed - blok_use$ci_blok_roed), min(blok_use$blok_blaa - blok_use$ci_blok_blaa)) - 2.5, max(max(blok_use$blok_roed + blok_use$ci_blok_roed), max(blok_use$blok_blaa + blok_use$ci_blok_blaa)) + 1) +
+  theme_minimal(base_size = 12, base_family = "Barlow") %+replace% 
+  theme(panel.grid.major.x = element_blank(), 
+        panel.grid.minor.x = element_blank(), 
+        panel.grid.major.y = element_line(colour = "grey90", size = 0.2),
+        panel.grid.minor.y = element_blank(),
+        plot.caption = element_text(hjust = 1, size = 10, margin = margin(t = -57), lineheight = 1.2),
+        legend.justification = c(0, 0),
+        legend.position = "bottom",
+        plot.margin=unit(c(.5, .5, 1.5, .5),"cm"),
+        axis.ticks.x = element_line(colour = "gray48"),
+        axis.ticks.y = element_blank()
+  ) +
+  labs(y = "Opbakning (%)",
+       x = NULL,
+       caption = "Blå blok: Venstre, Konservative, Nye Borgerlige, Liberal Alliance, Dansk Folkeparti, Kristendemokraterne, Moderaterne \n Rød blok: Socialdemokratiet, Radikale Venstre, Enhedslisten, SF, Veganerpartiet, Frie Grønne, Alternativet")
+
+ggsave('support-blok.png', width = 8, height = 6)
