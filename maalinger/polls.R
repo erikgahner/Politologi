@@ -164,9 +164,9 @@ blok_use <- polls |>
   top_n(75, as.Date(date)) 
 
 ggplot(data = blok_use) +
-  geom_hline(yintercept=50, linetype = "dashed") +
-  stat_smooth (geom="line", aes(x = as.Date(date), y = blok_roed), colour = "#FF4136", span = .3, size = 1, alpha = 0.4) +
-  stat_smooth (geom="line", aes(x = as.Date(date), y = blok_blaa), colour = "#0074D9", span = .3, size = 1, alpha = 0.4) +
+  geom_hline(yintercept = 50, linetype = "dashed") +
+  stat_smooth(geom="line", aes(x = as.Date(date), y = blok_roed), colour = "#FF4136", span = .3, size = 1, alpha = 0.4) +
+  stat_smooth(geom="line", aes(x = as.Date(date), y = blok_blaa), colour = "#0074D9", span = .3, size = 1, alpha = 0.4) +
   geom_point(aes(x = as.Date(date), y = blok_roed), colour = "#FF4136") +
   geom_errorbar(aes(x = as.Date(date), y = blok_roed, ymin = blok_roed - ci_blok_roed, ymax = blok_roed + ci_blok_roed), colour = "#FF4136") +
   geom_point(aes(x = as.Date(date), y = blok_blaa), colour = "#0074D9") +
