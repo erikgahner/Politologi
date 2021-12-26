@@ -184,7 +184,7 @@ ggplot(data = blok_use) +
         axis.ticks.x = element_line(colour = "gray48"),
         axis.ticks.y = element_blank()
   ) +
-  labs(y = "Opbakning (%)",
+  labs(y = NULL,
        x = NULL,
        caption = "Blå blok: Venstre, Konservative, Nye Borgerlige, Liberal Alliance, Dansk Folkeparti, Kristendemokraterne, Moderaterne \n Rød blok: Socialdemokratiet, Radikale Venstre, Enhedslisten, SF, Veganerpartiet, Frie Grønne, Alternativet")
 
