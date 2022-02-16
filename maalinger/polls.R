@@ -196,6 +196,7 @@ polls_2019 <- polls |>
 polls_2019 |>
   gather(party, support, party_a:party_moderaterne) |>
   drop_na(support) |> 
+  filter(party != "party_moderaterne") |> 
   ggplot(aes(x=as.Date(date), y=support, colour=party)) +
   geom_point(size=1, alpha=0.3) +
   geom_hline(yintercept = 0) +
@@ -204,9 +205,11 @@ polls_2019 |>
   labs(y = "Stemmer (%)",
        x = NULL) +
   scale_colour_manual(labels = c("Socialdemokraterne", "Alternativet", "Radikale Venstre", "Konservative", "Nye Borgerlige", "Klaus Riskær Pedersen", "SF", 
-                                 "Veganerpartiet", "Liberal Alliance", "Kristendemokraterne", "Moderaterne", "Dansk Folkeparti", "Enhedslisten", "Stram Kurs", "Frie Grønne", "Venstre"), 
+                                 "Veganerpartiet", "Liberal Alliance", "Kristendemokraterne", #"Moderaterne", 
+                                 "Dansk Folkeparti", "Enhedslisten", "Stram Kurs", "Frie Grønne", "Venstre"), 
                       values = c("#E3515D", "#AEFEAF", "#EB4295", "#429969", "#05454F", "#537D7A", "#9C1D2A", 
-                                 "darkgreen", "#EE9A5F", "#F4CE97", "#5bc3f5", "#3D6F8D", "#914A4F", "#000000", "green", "#459BC8"),
+                                 "darkgreen", "#EE9A5F", "#F4CE97", #"#5bc3f5", 
+                                 "#3D6F8D", "#914A4F", "#000000", "green", "#459BC8"),
                       guide = guide_legend(ncol = 3)) +
   theme_minimal(base_size = 12, base_family = "Barlow") %+replace% 
   theme(panel.grid.major.x = element_blank(), 
