@@ -194,11 +194,14 @@ polls_2019 <- polls |>
   filter(date > as.Date("2019-06-05"))
 
 polls_2019 |>
-  gather(party, support, party_a:party_moderaterne) |>
+  pivot_longer(party_a:party_moderaterne, names_to = "party", values_to = "support") |> 
   drop_na(support) |> 
+  mutate(ci = 1.96 * sqrt((support * (100 - support)) / n)) |> 
+  select(date, party, support, ci) |> 
   filter(party != "party_moderaterne") |> 
-  ggplot(aes(x=as.Date(date), y=support, colour=party)) +
+  ggplot(aes(x=as.Date(date), y=support, ymin = support - ci, ymax = support + ci, colour=party)) +
   geom_point(size=1, alpha=0.3) +
+  geom_errorbar(width = 0, alpha = 0.1) +
   geom_hline(yintercept = 0) +
   geom_smooth(se=FALSE, method="loess", span = .5) +
   geom_hline(yintercept=2, linetype = "dashed") +
