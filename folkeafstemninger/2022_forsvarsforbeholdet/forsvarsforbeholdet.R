@@ -19,7 +19,7 @@ ff |>
              col = name, shape = institut)) +
   geom_hline(yintercept = 50, linetype = "dashed") +
   geom_point(position = position_dodge(width = 1), size = 3.5) +
-  geom_errorbar(position = position_dodge(width = 1), width = 0, size = 1.5, alpha = 0.6) +
+  geom_errorbar(position = position_dodge(width = 1), width = 0, size = 1.5, alpha = 0.5) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   scale_x_date(limits = c(as.Date("2022-03-01"), as.Date("2022-06-02")),
                date_breaks = "1 month", 
@@ -39,7 +39,7 @@ ff |>
        title = "Meningsmålinger om forsvarsforbeholdet",
        subtitle = "Skal forsvarsforbeholdet afskaffes? Med 'Ved ikke' svar inkluderet",
        caption = "Opbakning med 95% konfidensintervaller") +
-  scale_colour_manual(values = c("#3D9970", "#FF4136", "#AAAAAA"))
+  scale_colour_manual(values = c("#005AB5", "#DC3220", "gray"))
 
 ggsave("forsvarsforbeholdet_vedikke.png", width = 7, height = 7, dpi = 400)
 
@@ -58,7 +58,7 @@ ff |>
              col = name, shape = institut)) +
   geom_hline(yintercept = 50, linetype = "dashed") +
   geom_point(size = 3.5) +
-  geom_errorbar(width = 0, size = 1.5, alpha = 0.6) +
+  geom_errorbar(width = 0, size = 1.5, alpha = 0.5) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   scale_x_date(limits = c(as.Date("2022-03-01"), as.Date("2022-06-02")),
                date_breaks = "1 month", 
@@ -78,6 +78,6 @@ ff |>
        title = "Meningsmålinger om forsvarsforbeholdet",
        subtitle = "Skal forsvarsforbeholdet afskaffes? Med 'Ved ikke' svar ekskluderet",
        caption = "Opbakning med 95% konfidensintervaller") +
-  scale_colour_manual(values = c("#3D9970", "#FF4136"))
+  scale_colour_manual(values = c("#005AB5", "#DC3220"))
 
 ggsave("forsvarsforbeholdet_udenvedikke.png", width = 7, height = 7, dpi = 400)
