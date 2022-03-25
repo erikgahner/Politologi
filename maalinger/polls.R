@@ -126,10 +126,14 @@ dev.off()
 
 png('support-all.png', width = 800, height = 700, units = "px", res = 115)
 polls_use %>%
-  gather(party, support, party_a:party_aa) %>%
-  filter(!party %in% c("party_e", "party_p", "party_q", "party_moderaterne")) %>% 
-  ggplot(aes(x=as.Date(date), y=support, colour=party)) +
+  pivot_longer(party_a:party_moderaterne, names_to = "party", values_to = "support") |> 
+  drop_na(support) |> 
+  filter(!party %in% c("party_e", "party_p", "party_q", "party_moderaterne")) %>%
+  mutate(ci = 1.96 * sqrt((support * (100 - support)) / n)) |>
+  select(date, party, support, ci) |> 
+  ggplot(aes(x=as.Date(date), y=support, ymin = support - ci, ymax = support + ci, colour = party)) +
   geom_point(size=1, alpha=0.3) +
+  geom_errorbar(width = 0, alpha = 0.1) +
   geom_hline(yintercept = 0) +
   geom_smooth(se=FALSE, method="loess", span = .3) +
   geom_hline(yintercept=2, linetype = "dashed") +

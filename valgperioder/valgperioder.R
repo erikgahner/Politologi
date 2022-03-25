@@ -24,11 +24,14 @@ polls_2011 <- polls |>
   filter(date > as.Date("2011-09-15"), date <= as.Date("2015-06-18"))
 
 polls_2011 |>
-  gather(party, support, party_a:party_moderaterne) |>
-  filter(!party %in% c("party_e", "party_p", "party_q", "party_moderaterne")) |>
+  pivot_longer(party_a:party_moderaterne, names_to = "party", values_to = "support") |> 
   drop_na(support) |> 
-  ggplot(aes(x=as.Date(date), y=support, colour=party)) +
+  mutate(ci = 1.96 * sqrt((support * (100 - support)) / n)) |> 
+  select(date, party, support, ci) |> 
+  filter(!party %in% c("party_e", "party_p", "party_q", "party_moderaterne")) |>
+  ggplot(aes(x=as.Date(date), y=support, ymin = support - ci, ymax = support + ci, colour=party)) +
   geom_point(size=1, alpha=0.3) +
+  geom_errorbar(width = 0, alpha = 0.1) +
   geom_hline(yintercept = 0) +
   geom_smooth(se=FALSE, method="loess", span = .3) +
   geom_hline(yintercept=2, linetype = "dashed") +
@@ -60,11 +63,14 @@ polls_2015 <- polls |>
   filter(date > as.Date("2015-06-18"), date <= as.Date("2019-06-05"))
 
 polls_2015 |>
-  gather(party, support, party_a:party_moderaterne) |>
-  filter(!party %in% c("party_q", "party_moderaterne")) |>
+  pivot_longer(party_a:party_moderaterne, names_to = "party", values_to = "support") |> 
   drop_na(support) |> 
-  ggplot(aes(x=as.Date(date), y=support, colour=party)) +
+  mutate(ci = 1.96 * sqrt((support * (100 - support)) / n)) |> 
+  select(date, party, support, ci) |> 
+  filter(!party %in% c("party_q", "party_moderaterne")) |>
+  ggplot(aes(x=as.Date(date), y=support, ymin = support - ci, ymax = support + ci, colour = party)) +
   geom_point(size=1, alpha=0.3) +
+  geom_errorbar(width = 0, alpha = 0.1) +
   geom_hline(yintercept = 0) +
   geom_smooth(se=FALSE, method="loess", span = .3) +
   geom_hline(yintercept=2, linetype = "dashed") +
