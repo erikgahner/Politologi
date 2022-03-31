@@ -21,6 +21,9 @@ ff |>
   geom_point(position = position_dodge(width = 1), size = 3.5) +
   geom_errorbar(position = position_dodge(width = 1), width = 0, size = 1.5, alpha = 0.5) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
+  geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
+  annotate("text", x = as.Date("2022-05-15"), y = 25, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
+  geom_curve(aes(x = as.Date("2022-05-15"), y = 27, xend = as.Date("2022-05-30"), yend = 30), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
   scale_x_date(limits = c(as.Date("2022-03-01"), as.Date("2022-06-02")),
                date_breaks = "1 month", 
                labels = scales::date_format("%B")) +
@@ -60,6 +63,9 @@ ff |>
   geom_point(size = 3.5) +
   geom_errorbar(width = 0, size = 1.5, alpha = 0.5) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
+  geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
+  annotate("text", x = as.Date("2022-05-15"), y = 35, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
+  geom_curve(aes(x = as.Date("2022-05-15"), y = 37, xend = as.Date("2022-05-30"), yend = 40), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
   scale_x_date(limits = c(as.Date("2022-03-01"), as.Date("2022-06-02")),
                date_breaks = "1 month", 
                labels = scales::date_format("%B")) +
