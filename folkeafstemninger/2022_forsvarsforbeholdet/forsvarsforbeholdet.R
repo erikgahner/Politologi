@@ -87,3 +87,21 @@ ff |>
   scale_colour_manual(values = c("#005AB5", "#DC3220"))
 
 ggsave("forsvarsforbeholdet_udenvedikke.png", width = 7, height = 7, dpi = 400)
+
+library("gt")
+
+ff |> 
+  mutate(dato = paste0(format(dato_end, "%d"), ". ", str_to_lower(format(dato_end, "%B")))) |> 
+  select(institut, dato, spoergsmaal_ordlyd) |> 
+  gt() |> 
+  cols_label(
+    institut = "Institut",
+    dato = "Dato",
+    spoergsmaal_ordlyd = "Spørgsmålsformulering"
+  ) |> 
+  fmt_missing(columns = c(spoergsmaal_ordlyd), missing_text = "–") |> 
+  cols_width(
+    institut ~ px(100),
+    dato ~ px(100)
+  ) |> 
+  as_raw_html()
