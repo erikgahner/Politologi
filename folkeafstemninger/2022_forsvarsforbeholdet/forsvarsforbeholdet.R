@@ -20,6 +20,7 @@ ff |>
   geom_hline(yintercept = 50, linetype = "dashed") +
   geom_point(position = position_dodge(width = 1), size = 3.5) +
   geom_errorbar(position = position_dodge(width = 1), width = 0, size = 1.5, alpha = 0.5) +
+  scale_shape_manual(values = c(16, 15, 17, 18, 4)) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
   annotate("text", x = as.Date("2022-05-15"), y = 25, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
@@ -62,6 +63,7 @@ ff |>
   geom_hline(yintercept = 50, linetype = "dashed") +
   geom_point(size = 3.5) +
   geom_errorbar(width = 0, size = 1.5, alpha = 0.5) +
+  scale_shape_manual(values = c(16, 15, 17, 18, 4)) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
   annotate("text", x = as.Date("2022-05-15"), y = 35, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
