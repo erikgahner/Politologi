@@ -23,8 +23,8 @@ ff |>
   scale_shape_manual(values = c(16, 15, 17, 18, 4)) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
-  annotate("text", x = as.Date("2022-05-15"), y = 25, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
-  geom_curve(aes(x = as.Date("2022-05-15"), y = 27, xend = as.Date("2022-05-30"), yend = 30), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
+  annotate("text", x = as.Date("2022-05-15"), y = 15, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
+  geom_curve(aes(x = as.Date("2022-05-15"), y = 17, xend = as.Date("2022-05-30"), yend = 20), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
   scale_x_date(limits = c(as.Date("2022-03-01"), as.Date("2022-06-02")),
                date_breaks = "1 month", 
                labels = scales::date_format("%B")) +
@@ -66,8 +66,8 @@ ff |>
   scale_shape_manual(values = c(16, 15, 17, 18, 4)) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
-  annotate("text", x = as.Date("2022-05-15"), y = 35, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
-  geom_curve(aes(x = as.Date("2022-05-15"), y = 37, xend = as.Date("2022-05-30"), yend = 40), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
+  annotate("text", x = as.Date("2022-05-15"), y = 25, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
+  geom_curve(aes(x = as.Date("2022-05-15"), y = 27, xend = as.Date("2022-05-30"), yend = 30), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
   scale_x_date(limits = c(as.Date("2022-03-01"), as.Date("2022-06-02")),
                date_breaks = "1 month", 
                labels = scales::date_format("%B")) +
@@ -94,6 +94,7 @@ library("gt")
 
 ff |> 
   mutate(dato = paste0(format(dato_end, "%d"), ". ", str_to_lower(format(dato_end, "%B")))) |> 
+  arrange(dato_end) |> 
   select(institut, dato, spoergsmaal_ordlyd) |> 
   gt() |> 
   cols_label(
