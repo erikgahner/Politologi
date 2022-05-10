@@ -93,7 +93,7 @@ ggsave("forsvarsforbeholdet_udenvedikke.png", width = 7, height = 7, dpi = 400)
 library("gt")
 
 ff |> 
-  mutate(dato = paste0(format(dato_end, "%d"), ". ", str_to_lower(format(dato_end, "%B")))) |> 
+  mutate(dato = gsub(" 0", " ", tolower(format(dato_end, " %d. %B")))) |> 
   arrange(dato_end) |> 
   select(institut, dato, spoergsmaal_ordlyd) |> 
   gt() |> 
