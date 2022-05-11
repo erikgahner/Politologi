@@ -6,6 +6,7 @@ options(OutDec= ",")
 ff <- read_csv("forsvarsforbeholdet.csv")
 
 ff |> 
+  mutate(n = ifelse(is.na(n), 1000, n)) |> 
   mutate(across(c("svar_ja", "svar_nej", "svar_vedikke"), ~ ifelse(!is.na(svar_andet), (.x / (100 - svar_andet))*100, .x))) |> 
   select(-svar_andet) |> 
   pivot_longer(starts_with("svar_")) |> 
@@ -48,6 +49,7 @@ ff |>
 ggsave("forsvarsforbeholdet_vedikke.png", width = 7, height = 7, dpi = 400)
 
 ff |> 
+  mutate(n = ifelse(is.na(n), 1000, n)) |> 
   mutate(n = n - n * (svar_vedikke / 100)) |> 
   mutate(across(c("svar_ja", "svar_nej"), ~ ifelse(!is.na(svar_andet), (.x / (100 - svar_andet - svar_vedikke))*100, 
                                                    (.x / (100 - svar_vedikke))*100))) |> 
