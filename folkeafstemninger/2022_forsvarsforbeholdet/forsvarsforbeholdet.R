@@ -6,6 +6,7 @@ options(OutDec= ",")
 ff <- read_csv("forsvarsforbeholdet.csv")
 
 ff |> 
+  filter(str_detect(str_to_lower(spoergsmaal_ordlyd), "forbehold")) |> 
   mutate(n = ifelse(is.na(n), 1000, n)) |> 
   mutate(across(c("svar_ja", "svar_nej", "svar_vedikke"), ~ ifelse(!is.na(svar_andet), (.x / (100 - svar_andet))*100, .x))) |> 
   select(-svar_andet) |> 
@@ -49,6 +50,7 @@ ff |>
 ggsave("forsvarsforbeholdet_vedikke.png", width = 7, height = 7, dpi = 400)
 
 ff |> 
+  filter(str_detect(str_to_lower(spoergsmaal_ordlyd), "forbehold")) |> 
   mutate(n = ifelse(is.na(n), 1000, n)) |> 
   mutate(n = n - n * (svar_vedikke / 100)) |> 
   mutate(across(c("svar_ja", "svar_nej"), ~ ifelse(!is.na(svar_andet), (.x / (100 - svar_andet - svar_vedikke))*100, 
@@ -95,6 +97,7 @@ ggsave("forsvarsforbeholdet_udenvedikke.png", width = 7, height = 7, dpi = 400)
 library("gt")
 
 ff |> 
+  filter(str_detect(str_to_lower(spoergsmaal_ordlyd), "forbehold")) |> 
   mutate(dato = gsub(" 0", " ", tolower(format(dato_end, " %d. %B")))) |> 
   arrange(dato_end) |> 
   select(institut, dato, spoergsmaal_ordlyd) |> 
