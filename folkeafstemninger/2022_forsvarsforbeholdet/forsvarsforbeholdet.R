@@ -7,7 +7,8 @@ ff <- read_csv("forsvarsforbeholdet.csv")
 
 ff |> 
   filter(str_detect(str_to_lower(spoergsmaal_ordlyd), "forbehold")) |> 
-  mutate(n = ifelse(is.na(n), 1000, n)) |> 
+  mutate(n = ifelse(is.na(n), 1000, n),
+         svar_vedikke = ifelse(is.na(svar_vedikke), 0, svar_vedikke)) |> 
   mutate(across(c("svar_ja", "svar_nej", "svar_vedikke"), ~ ifelse(!is.na(svar_andet), (.x / (100 - svar_andet))*100, .x))) |> 
   select(-svar_andet) |> 
   pivot_longer(starts_with("svar_")) |> 
@@ -22,7 +23,7 @@ ff |>
   geom_hline(yintercept = 50, linetype = "dashed") +
   geom_point(position = position_dodge(width = 1), size = 3.5) +
   geom_errorbar(position = position_dodge(width = 1), width = 0, size = 1.5, alpha = 0.5) +
-  scale_shape_manual(values = c(16, 15, 17, 18, 4)) +
+  scale_shape_manual(values = c(16, 15, 17, 18, 4, 1)) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
   annotate("text", x = as.Date("2022-05-15"), y = 15, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
@@ -51,7 +52,8 @@ ggsave("forsvarsforbeholdet_vedikke.png", width = 7, height = 7, dpi = 400)
 
 ff |> 
   filter(str_detect(str_to_lower(spoergsmaal_ordlyd), "forbehold")) |> 
-  mutate(n = ifelse(is.na(n), 1000, n)) |> 
+  mutate(n = ifelse(is.na(n), 1000, n),
+         svar_vedikke = ifelse(is.na(svar_vedikke), 0, svar_vedikke)) |> 
   mutate(n = n - n * (svar_vedikke / 100)) |> 
   mutate(across(c("svar_ja", "svar_nej"), ~ ifelse(!is.na(svar_andet), (.x / (100 - svar_andet - svar_vedikke))*100, 
                                                    (.x / (100 - svar_vedikke))*100))) |> 
@@ -67,7 +69,7 @@ ff |>
   geom_hline(yintercept = 50, linetype = "dashed") +
   geom_point(size = 3.5) +
   geom_errorbar(width = 0, size = 1.5, alpha = 0.5) +
-  scale_shape_manual(values = c(16, 15, 17, 18, 4)) +
+  scale_shape_manual(values = c(16, 15, 17, 18, 4, 1)) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
   annotate("text", x = as.Date("2022-05-15"), y = 25, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
