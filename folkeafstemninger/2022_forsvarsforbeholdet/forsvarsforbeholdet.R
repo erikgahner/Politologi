@@ -26,8 +26,8 @@ ff |>
   scale_shape_manual(values = c(16, 15, 17, 18, 4, 1)) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
-  annotate("text", x = as.Date("2022-05-15"), y = 15, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
-  geom_curve(aes(x = as.Date("2022-05-15"), y = 17, xend = as.Date("2022-05-30"), yend = 20), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
+  annotate("text", x = as.Date("2022-05-12"), y = 12, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
+  geom_curve(aes(x = as.Date("2022-05-15"), y = 16, xend = as.Date("2022-05-30"), yend = 19), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
   scale_x_date(limits = c(as.Date("2022-03-01"), as.Date("2022-06-02")),
                date_breaks = "1 month", 
                labels = scales::date_format("%B")) +
@@ -109,7 +109,7 @@ ff |>
     dato = "Dato",
     spoergsmaal_ordlyd = "Spørgsmålsformulering"
   ) |> 
-  fmt_missing(columns = c(spoergsmaal_ordlyd), missing_text = "–") |> 
+  #fmt_missing(columns = c(spoergsmaal_ordlyd), missing_text = "–") |> 
   cols_width(
     institut ~ px(100),
     dato ~ px(100)
