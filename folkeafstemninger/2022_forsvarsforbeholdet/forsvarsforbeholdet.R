@@ -26,7 +26,7 @@ ff |>
   scale_shape_manual(values = c(16, 15, 17, 18, 4, 1)) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
-  annotate("text", x = as.Date("2022-05-12"), y = 12, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
+  annotate("text", x = as.Date("2022-05-12"), y = 12, label = "Folkeafstemningen\nfandt sted 1. juni", colour = "gray60") +
   geom_curve(aes(x = as.Date("2022-05-15"), y = 16, xend = as.Date("2022-05-30"), yend = 19), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
   scale_x_date(limits = c(as.Date("2022-03-01"), as.Date("2022-06-02")),
                date_breaks = "1 month", 
@@ -72,7 +72,7 @@ ff |>
   scale_shape_manual(values = c(16, 15, 17, 18, 4, 1)) +
   geom_vline(xintercept = as.Date("2022-06-01"), linetype = "dotted", col = "#0074D9") +
   geom_vline(xintercept = as.Date("2022-03-06"), linetype = "dotted", col = "#0074D9") +
-  annotate("text", x = as.Date("2022-05-15"), y = 25, label = "Folkeafstemningen\nfinder sted 1. juni", colour = "gray60") +
+  annotate("text", x = as.Date("2022-05-15"), y = 25, label = "Folkeafstemningen\nfandt sted 1. juni", colour = "gray60") +
   geom_curve(aes(x = as.Date("2022-05-15"), y = 27, xend = as.Date("2022-05-30"), yend = 30), curvature = -0.5, colour = "black", size=0.2, arrow = arrow(length = unit(0.01, "npc"))) +
   scale_x_date(limits = c(as.Date("2022-03-01"), as.Date("2022-06-02")),
                date_breaks = "1 month", 
@@ -92,7 +92,7 @@ ff |>
        title = "Meningsmålinger om forsvarsforbeholdet",
        subtitle = "Skal forsvarsforbeholdet afskaffes? Med 'Ved ikke' svar ekskluderet",
        caption = "Opbakning med 95% konfidensintervaller") +
-  scale_colour_manual(values = c("#005AB5", "#DC3220"))
+  scale_colour_manual(values = c("#005AB5", "#DC3220")) 
 
 ggsave("forsvarsforbeholdet_udenvedikke.png", width = 7, height = 7, dpi = 400)
 
