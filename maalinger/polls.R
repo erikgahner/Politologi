@@ -15,6 +15,7 @@ polls <- read_csv("https://raw.githubusercontent.com/erikgahner/polls/master/pol
 
 polls <- polls %>% 
   mutate(date = make_date(year, month, day),
+         n = ifelse(is.na(n), 1000, n),
          across(starts_with("party"), ~ qbeta(1 - 0.05 / 2, n * (.x/100) + 1, n - n * (.x/100)) * 100, .names = "ci_max_{.col}"),
          across(starts_with("party"), ~ qbeta(0.05 / 2, n * (.x/100), n - n * (.x/100) + 1) * 100, .names = "ci_min_{.col}")
          # Old approach
