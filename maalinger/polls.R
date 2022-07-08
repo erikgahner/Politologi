@@ -195,7 +195,7 @@ ggplot(data = blok_use) +
        x = NULL,
        caption = "Blå blok: Venstre, Konservative, Nye Borgerlige, Liberal Alliance, Dansk Folkeparti, Kristendemokraterne, Moderaterne \n Rød blok: Socialdemokratiet, Radikale Venstre, Enhedslisten, SF, Veganerpartiet, Frie Grønne, Alternativet")
 
-ggsave('support-blok.png', width = 8, height = 6)
+ggsave('support-blok.png', width = 8, height = 6, bg = "white")
 
 polls_2019 <- polls |> 
   filter(date > as.Date("2019-06-05"))
@@ -235,4 +235,4 @@ polls_2019 |>
         legend.title = element_blank()
   )
 
-ggsave("../valgperioder/fv_2019.jpg", width = 6, height = 8)
+ggsave("../valgperioder/fv_2019.jpg", width = 6, height = 8, bg = "white")
