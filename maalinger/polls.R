@@ -11,7 +11,7 @@ polls <- read_csv("https://raw.githubusercontent.com/erikgahner/polls/master/pol
                     party_e = col_double(),
                     party_g = col_double(),
                     party_m = col_double(),
-                    party_inger = col_double()
+                    party_ae = col_double()
                   ))
 
 polls <- polls %>% 
@@ -126,14 +126,14 @@ plot_party("m", "Moderaterne")
 dev.off()
 
 png('support-inger.png', width = 800, height = 700, units = "px", res = 135)
-plot_party(x = "inger", parti = "Danmarksdemokraterne")
+plot_party(x = "ae", parti = "Danmarksdemokraterne")
 dev.off()
 
 png('support-all.png', width = 800, height = 700, units = "px", res = 115)
 polls_use %>%
-  pivot_longer(party_a:party_inger, names_to = "party", values_to = "support") |> 
+  pivot_longer(party_a:party_ae, names_to = "party", values_to = "support") |> 
   drop_na(support) |> 
-  filter(!party %in% c("party_e", "party_p", "party_q", "party_m", "party_inger")) %>%
+  filter(!party %in% c("party_e", "party_p", "party_q", "party_m", "party_ae")) %>%
   mutate(ci = 1.96 * sqrt((support * (100 - support)) / n)) |>
   select(date, party, support, ci) |> 
   ggplot(aes(x=as.Date(date), y=support, ymin = support - ci, ymax = support + ci, colour = party)) +
@@ -167,7 +167,7 @@ dev.off()
 blok_use <- polls |> 
   mutate(across(starts_with("party_"), ~ ifelse(is.na(.x), 0, .x))) |> 
   mutate(blok_roed = party_a + party_b + party_f + party_g + party_q + party_oe + party_aa,
-         blok_blaa = party_c + party_d + party_e + party_i + party_k + party_o + party_p + party_v + party_m + party_inger) |> 
+         blok_blaa = party_c + party_d + party_e + party_i + party_k + party_o + party_p + party_v + party_m + party_ae) |> 
   select(-starts_with("party_")) |> 
   mutate(date = make_date(year, month, day),
          across(starts_with("blok_"), ~ 1.96 * sqrt((.x * (100 - .x)) / n), .names = "ci_{.col}")
@@ -206,11 +206,11 @@ polls_2019 <- polls |>
   filter(date > as.Date("2019-06-05"))
 
 polls_2019 |>
-  pivot_longer(party_a:party_inger, names_to = "party", values_to = "support") |> 
+  pivot_longer(party_a:party_ae, names_to = "party", values_to = "support") |> 
   drop_na(support) |> 
   mutate(ci = 1.96 * sqrt((support * (100 - support)) / n)) |> 
   select(date, party, support, ci) |> 
-  filter(!party %in% c("party_m", "party_inger")) |> 
+  filter(!party %in% c("party_m", "party_ae")) |> 
   ggplot(aes(x=as.Date(date), y=support, ymin = support - ci, ymax = support + ci, colour=party)) +
   geom_point(size=1, alpha=0.3) +
   geom_errorbar(width = 0, alpha = 0.1) +
