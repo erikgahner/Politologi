@@ -90,7 +90,7 @@ plot_party("f", "SF")
 dev.off()
 
 png('support-g.png', width = 800, height = 700, units = "px", res = 135)
-plot_party("g", "Veganerpartiet")
+plot_party("g", "Grøn Alliance")
 dev.off()
 
 png('support-i.png', width = 800, height = 700, units = "px", res = 135)
@@ -144,7 +144,7 @@ polls_use %>%
   geom_hline(yintercept=2, linetype = "dashed") +
   labs(y = "Stemmer (%)",
        x = NULL) +
-  scale_colour_manual(labels = c("Socialdemokraterne", "Alternativet", "Radikale Venstre", "Konservative", "Nye Borgerlige", "SF", "Veganerpartiet", 
+  scale_colour_manual(labels = c("Socialdemokraterne", "Alternativet", "Radikale Venstre", "Konservative", "Nye Borgerlige", "SF", "Grøn Alliance", 
                                  "Liberal Alliance", "Kristendemokraterne", "Dansk Folkeparti", "Enhedslisten", "Venstre"), 
                       values = c("#E3515D", "#AEFEAF", "#EB4295", "#429969", "#05454F", "#9C1D2A", "green",
                                  "#EE9A5F", "#F4CE97", "#3D6F8D", "#914A4F", "#459BC8"),
@@ -198,7 +198,7 @@ ggplot(data = blok_use) +
   ) +
   labs(y = NULL,
        x = NULL,
-       caption = "Blå blok: Venstre, Konservative, Nye Borgerlige, Liberal Alliance, Dansk Folkeparti, Kristendemokraterne, Moderaterne, Danmarksdemokraterne \n Rød blok: Socialdemokratiet, Radikale Venstre, Enhedslisten, SF, Veganerpartiet, Frie Grønne, Alternativet")
+       caption = "Blå blok: Venstre, Konservative, Nye Borgerlige, Liberal Alliance, Dansk Folkeparti, Kristendemokraterne, Moderaterne, Danmarksdemokraterne \n Rød blok: Socialdemokratiet, Radikale Venstre, Enhedslisten, SF, Grøn Alliance, Frie Grønne, Alternativet")
 
 ggsave('support-blok.png', width = 9, height = 6, bg = "white")
 
@@ -220,7 +220,7 @@ polls_2019 |>
   labs(y = "Stemmer (%)",
        x = NULL) +
   scale_colour_manual(labels = c("Socialdemokraterne", "Alternativet", "Radikale Venstre", "Konservative", "Nye Borgerlige", "Klaus Riskær Pedersen", "SF", 
-                                 "Veganerpartiet", "Liberal Alliance", "Kristendemokraterne", #"Moderaterne", 
+                                 "Grøn Alliance", "Liberal Alliance", "Kristendemokraterne", #"Moderaterne", 
                                  "Dansk Folkeparti", "Enhedslisten", "Stram Kurs", "Frie Grønne", "Venstre"), 
                       values = c("#E3515D", "#AEFEAF", "#EB4295", "#429969", "#05454F", "#537D7A", "#9C1D2A", 
                                  "darkgreen", "#EE9A5F", "#F4CE97", #"#5bc3f5", 
