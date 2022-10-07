@@ -133,7 +133,7 @@ png('support-all.png', width = 800, height = 700, units = "px", res = 115)
 polls_use %>%
   pivot_longer(party_a:party_ae, names_to = "party", values_to = "support") |> 
   drop_na(support) |> 
-  filter(!party %in% c("party_e", "party_p", "party_q", "party_m", "party_ae")) %>%
+  filter(!party %in% c("party_e", "party_p", "party_q", "party_m")) %>%
   mutate(ci = 1.96 * sqrt((support * (100 - support)) / n)) |>
   select(date, party, support, ci) |> 
   ggplot(aes(x=as.Date(date), y=support, ymin = support - ci, ymax = support + ci, colour = party)) +
@@ -144,9 +144,9 @@ polls_use %>%
   geom_hline(yintercept=2, linetype = "dashed") +
   labs(y = "Stemmer (%)",
        x = NULL) +
-  scale_colour_manual(labels = c("Socialdemokraterne", "Alternativet", "Radikale Venstre", "Konservative", "Nye Borgerlige", "SF", "Grøn Alliance", 
+  scale_colour_manual(labels = c("Socialdemokraterne", "Alternativet", "Danmarksdemokraterne", "Radikale Venstre", "Konservative", "Nye Borgerlige", "SF", "Grøn Alliance", 
                                  "Liberal Alliance", "Kristendemokraterne", "Dansk Folkeparti", "Enhedslisten", "Venstre"), 
-                      values = c("#E3515D", "#AEFEAF", "#EB4295", "#429969", "#05454F", "#9C1D2A", "green",
+                      values = c("#E3515D", "#AEFEAF", "#b23835", "#EB4295", "#429969", "#05454F", "#9C1D2A", "green",
                                  "#EE9A5F", "#F4CE97", "#3D6F8D", "#914A4F", "#459BC8"),
                       guide = guide_legend(ncol = 4)) +
   theme_minimal(base_size = 12, base_family = "Barlow") %+replace% 
