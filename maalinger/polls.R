@@ -167,7 +167,7 @@ dev.off()
 blok_use <- polls |> 
   mutate(across(starts_with("party_"), ~ ifelse(is.na(.x), 0, .x))) |> 
   mutate(blok_roed = party_a + party_b + party_f + party_g + party_q + party_oe + party_aa,
-         blok_blaa = party_c + party_d + party_e + party_i + party_k + party_o + party_p + party_v + party_m + party_ae) |> 
+         blok_blaa = party_c + party_d + party_e + party_i + party_k + party_o + party_p + party_v + party_ae) |> 
   select(-starts_with("party_")) |> 
   mutate(date = make_date(year, month, day),
          across(starts_with("blok_"), ~ 1.96 * sqrt((.x * (100 - .x)) / n), .names = "ci_{.col}")
@@ -198,7 +198,7 @@ ggplot(data = blok_use) +
   ) +
   labs(y = NULL,
        x = NULL,
-       caption = "Blå blok: Venstre, Konservative, Nye Borgerlige, Liberal Alliance, Dansk Folkeparti, Kristendemokraterne, Moderaterne, Danmarksdemokraterne \n Rød blok: Socialdemokratiet, Radikale Venstre, Enhedslisten, SF, Grøn Alliance, Frie Grønne, Alternativet")
+       caption = "Blå blok: Venstre, Konservative, Nye Borgerlige, Liberal Alliance, Dansk Folkeparti, Kristendemokraterne, Danmarksdemokraterne \n Rød blok: Socialdemokratiet, Radikale Venstre, Enhedslisten, SF, Grøn Alliance, Frie Grønne, Alternativet")
 
 ggsave('support-blok.png', width = 9, height = 6, bg = "white")
 
